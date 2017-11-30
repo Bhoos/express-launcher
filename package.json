@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
-    "prepublishOnly": "npm run link"
+    "prepublishOnly": "npm run lint"
   },
   "bin": {
     "express-launcher": "src/launcher.js"
