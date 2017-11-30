@@ -24,4 +24,4 @@ module.exports = function attachWebSocket(server, app) {
       socket.end(`HTTP/1.1 503 No Websocket Proxy\r\n\r\nNo websocket proxy handler defined for ${req.url}`);
     });
   });
-}
+};
