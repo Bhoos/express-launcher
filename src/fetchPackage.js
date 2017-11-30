@@ -1,10 +1,7 @@
 /* eslint-disable global-require, import/no-dynamic-require */
-const path = require('path');
 const { exec } = require('child_process');
 
-const cwd = path.resolve(__dirname, '..');
-console.log('Launcher cwd', cwd);
-module.exports = function loadNpmPackage(pkgUrl) {
+module.exports = function fetchPackage(pkgUrl, cwd) {
   const url = pkgUrl;
 
   return new Promise((resolve, reject) => {

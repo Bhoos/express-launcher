@@ -3,10 +3,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const loadSite = require('./loadSite');
+const fetchPackage = require('./fetchPackage');
 const { startServer, registerSite } = require('./server');
 
 const cwd = process.cwd();
+const nodeModulesDir = path.resolve(__dirname, '..');
 
 async function main() {
   // TODO: Load sites from sites.json file
@@ -14,7 +15,7 @@ async function main() {
     const sites = JSON.parse(fs.readFileSync(path.resolve(cwd, 'sites.json')));
     Object.keys(sites).forEach(async (name) => {
       const url = sites[name];
-      const site = await loadSite(url);
+      const site = await fetchPackage(url, nodeModulesDir);
       const p = `/${name}`;
       console.log(`Mounted site ${site.name} at ${p}`);
       registerSite(p, site.name);
@@ -26,7 +27,7 @@ async function main() {
   // Load a site from package.json
   if (fs.existsSync(path.resolve(cwd, 'package.json'))) {
     // const pkg = JSON.parse(fs.readFileSync(path.resolve(cwd, 'package.json')));
-    const site = await loadSite(cwd);
+    const site = await fetchPackage(cwd, nodeModulesDir);
     const p = '/';
     console.log(`Mounted site ${site.name} at ${p}`);
     registerSite(p, site.configureRouter);
